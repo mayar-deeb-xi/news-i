@@ -1,5 +1,5 @@
 import { Outlet as AppOutlet } from "react-router-dom";
-import { MuiThemeProvider, ReactQueryClientProvider, SnackbarProvider } from "~/providers";
+import { MuiThemeProvider, ReactQueryClientProvider, SnackbarProvider, MuiLocalizationProvider } from "~/providers";
 import { Header } from "./components/Header";
 import { Box } from "@mui/material";
 import './index.css'
@@ -7,14 +7,16 @@ import './index.css'
 export const AppComponent = () => {
   return (
     <MuiThemeProvider>
-      <SnackbarProvider>
-        <ReactQueryClientProvider>
-          <Box>
-            <Header />
-            <AppOutlet />
-          </Box>
-        </ReactQueryClientProvider>
-      </SnackbarProvider>
+      <MuiLocalizationProvider>
+        <SnackbarProvider>
+          <ReactQueryClientProvider>
+            <Box>
+              <Header />
+              <AppOutlet />
+            </Box>
+          </ReactQueryClientProvider>
+        </SnackbarProvider>
+      </MuiLocalizationProvider>
     </MuiThemeProvider>
   );
 };

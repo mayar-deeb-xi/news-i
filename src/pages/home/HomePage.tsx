@@ -6,6 +6,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { TableFilters } from "./components/TableFilters";
+import { useNewsApiService } from "~/services/news.api.services/useNewsApiService";
+
 
 function createData(
     name: string,
@@ -38,6 +40,11 @@ const rows = [
 
 
 export const HomePage = () => {
+
+    const pp = useNewsApiService({});
+
+
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', px: 3, py: 3 }}>
             <TableFilters />
@@ -53,9 +60,9 @@ export const HomePage = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {rows.map((row, index) => (
                             <TableRow
-                                key={row.name}
+                                key={index}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
