@@ -5,12 +5,11 @@ import type { QueryServiceOptions } from "~/types/common";
 export interface IndexQueryParams {
     // search keyword
     q?: string;
-    sortBy?: "relevancy" | "popularity" | "publishedAt";
-    pageSize?: number;
+    "order-by"?: "newest " | "oldest" | "relevance";
+    "page-size"?: number;
     page?: number;
-    from?: Date;
-    to?: Date;
-
+    "from-date"?: Date;
+    "to-date"?: Date;
 }
 
 export interface ApiError {

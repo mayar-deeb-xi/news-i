@@ -1,23 +1,23 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import type { IndexQueryOptions, IndexQueryParams } from "./news.api.types";
+import type { IndexQueryOptions, IndexQueryParams } from "./the.guardian.types";
 import { env } from "~/environment";
 
 const api = axios.create({
-  baseURL: 'https://newsapi.org/v2',
+  baseURL: 'https://content.guardianapis.com',
   params: {
-    apiKey: env.NEWS_API_KEY
+    "api-key": env.THE_GUARDIAN_API_KEY
   }
 })
 
 
-export const newsApiService = {
+export const theGuardianService = {
   index: () => {
-    const queryClient = useQueryClient(), queryKey = "NEWS_API_LIST";
+    const queryClient = useQueryClient(), queryKey = "THE_GUARDIAN_LIST";
     return {
       useQuery: (params?: IndexQueryParams, options?: IndexQueryOptions) => useQuery({
         queryKey: [queryKey, params],
-        queryFn: ({ signal }) => api.get(`/everything`, { signal, params: params }),
+        queryFn: ({ signal }) => api.get(`/search`, { signal, params: params }),
         ...options
       }),
       invalidate: () => queryClient.invalidateQueries({ queryKey: [queryKey] }),
@@ -25,7 +25,7 @@ export const newsApiService = {
     };
   }
   // show: () => {
-  //   const queryClient = useQueryClient(), queryKey = "NEWS_API_SHOW";
+  //   const queryClient = useQueryClient(), queryKey = "THE_GUARDIAN_SHOW";
   //   return {
   //     useQuery: (id: string, options?: ShowQueryOptions) => useQuery({
   //       queryKey: [queryKey, id],
