@@ -1,12 +1,19 @@
 import { Outlet as AppOutlet } from "react-router-dom";
-import { MuiThemeProvider, ReactQueryClientProvider } from "~/providers";
+import { MuiThemeProvider, ReactQueryClientProvider, SnackbarProvider } from "~/providers";
+import { Header } from "./components/Header";
+import { Box } from "@mui/material";
 
 export const AppComponent = () => {
   return (
     <MuiThemeProvider>
-      <ReactQueryClientProvider>
-        <AppOutlet />
-      </ReactQueryClientProvider>
+      <SnackbarProvider>
+        <ReactQueryClientProvider>
+          <Box>
+            <Header />
+            <AppOutlet />
+          </Box>
+        </ReactQueryClientProvider>
+      </SnackbarProvider>
     </MuiThemeProvider>
   );
 };
