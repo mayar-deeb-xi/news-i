@@ -1,7 +1,11 @@
-import { Autocomplete, Box, TextField } from '@mui/material';
+import { Autocomplete, Box, Button, TextField } from '@mui/material';
 import { useDebounce } from '~/hooks/useDebounce';
 import { useURLParams } from '~/hooks/useURLParams';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Controller, useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+
 
 
 export const TableFilters = () => {
@@ -28,9 +32,9 @@ export const TableFilters = () => {
         <Box sx={{
             display: 'flex',
             columnGap: 2,
-            my: 3, px: 2, py: 2,
+            px: 1, py: 1,
             borderRadius: 1, borderWidth: 1, borderStyle: 'solid',
-            borderColor: t => t.palette.info.light
+            borderColor: t => t.palette.grey[300]
         }}>
             <TextField
                 defaultValue={paramsState?.keyword ?? ''}
@@ -52,9 +56,6 @@ export const TableFilters = () => {
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Category" size='small' />}
             />
-
-            <DatePicker label="From Date" slotProps={{ textField: { size: 'small' } }} />
-            <DatePicker label="To Date" slotProps={{ textField: { size: 'small' } }} />
 
         </Box>
     )

@@ -9,6 +9,7 @@ import { TableFilters } from "./components/TableFilters";
 import { useNewsApiService } from "~/services/news.api.services/useNewsApiService";
 import { useURLParams } from "~/hooks/useURLParams";
 import { SortBy, UnifiedParams } from "~/services/news.api.services/news.api.types/common";
+import { DateFilters } from "./components/DateFilters";
 
 
 function createData(
@@ -66,8 +67,19 @@ export const HomePage = () => {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', px: 3, py: 3 }}>
-            <TableFilters />
-            <TableContainer sx={{ maxHeight: 440, boxShadow: 2 }}>
+
+
+            <Box
+                sx={{ display: 'flex', flexDirection: 'column', alignItems: 'self-start', rowGap: 2 }}
+            >
+                <TableFilters />
+                <DateFilters />
+
+            </Box>
+
+
+
+            <TableContainer sx={{ maxHeight: 440, boxShadow: 2, mt: 4 }}>
                 <Table stickyHeader aria-label="simple table">
                     <TableHead>
                         <TableRow>
