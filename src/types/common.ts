@@ -11,7 +11,7 @@ export type ParameterType<T extends (...args: any[]) => any> = T extends (
     : never;
 
 export type QueryServiceOptions<TQueryFnData = unknown, TError = Error, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey>
-    = Omit<DefinedInitialDataOptions<TQueryFnData, TError, TData, TQueryKey>, 'queryKey' | 'queryFn'>
+    = Partial<Omit<DefinedInitialDataOptions<TQueryFnData, TError, TData, TQueryKey>, 'queryKey' | 'queryFn'>>
 
 export type MutationServiceOptions<Request = any, Response = never> =
     | Omit<UseMutationOptions<Response, unknown, Request, unknown>, "mutationFn">

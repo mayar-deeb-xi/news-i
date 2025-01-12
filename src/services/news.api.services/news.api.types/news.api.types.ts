@@ -2,12 +2,18 @@
 export interface ListQueryParams {
     // search keyword
     q?: string;
-    sortBy?: "relevancy" | "popularity" | "publishedAt";
+    sortBy?: SortBy;
     pageSize?: number;
     page?: number;
     from?: Date;
     to?: Date;
 
+}
+
+export enum SortBy {
+    RELEVANCY = 'relevancy',
+    POPULARITY = 'popularity',
+    PUBLISHED_AT = 'publishedAt',
 }
 
 export interface Article {

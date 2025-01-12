@@ -1,11 +1,17 @@
 export interface ListQueryParams {
     // search keyword
     q?: string;
-    "order-by"?: "newest " | "oldest" | "relevance";
+    "order-by"?: SortBy;
     "page-size"?: number;
     page?: number;
     "from-date"?: Date;
     "to-date"?: Date;
+}
+
+export enum SortBy {
+    RELEVANCY = 'relevance',
+    OLDEST = 'oldest',
+    NEWEST = 'newest',
 }
 
 export interface Article {

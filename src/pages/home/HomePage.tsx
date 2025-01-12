@@ -7,6 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { TableFilters } from "./components/TableFilters";
 import { useNewsApiService } from "~/services/news.api.services/useNewsApiService";
+import { useURLParams } from "~/hooks/useURLParams";
+import { SortBy, UnifiedParams } from "~/services/news.api.services/news.api.types/common";
 
 
 function createData(
@@ -39,9 +41,26 @@ const rows = [
 
 
 
+
+export const defaultParams: UnifiedParams = {
+    page: 1,
+    limit: 5,
+    q: '',
+    sortBy: SortBy.RELEVANCY
+}
 export const HomePage = () => {
 
-    const pp = useNewsApiService({});
+
+
+    const { paramsState } = useURLParams<UnifiedParams>({ defaultParams });
+
+    const pp = useNewsApiService({
+        params: { ...defaultParams, ...paramsState },
+
+        newsApiQueryOptions2: {
+            enabled: false
+        }
+    });
 
 
 
