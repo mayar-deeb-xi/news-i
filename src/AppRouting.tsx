@@ -2,6 +2,7 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import { HomePage } from "~/pages/home/HomePage"
 import { AppErrorBoundary } from "~/error-boundary/AppErrorBoundary";
 import { AppComponent } from "./AppComponent";
+import TasksRouting from "./pages/tasks/TasksRouting";
 
 
 export const router = createBrowserRouter(createRoutesFromElements(
@@ -9,6 +10,10 @@ export const router = createBrowserRouter(createRoutesFromElements(
     <Route
       path={`/`}
       element={<HomePage />}
+    />
+    <Route
+      path={`tasks/*`}
+      element={<TasksRouting />}
     />
   </Route>
 ));

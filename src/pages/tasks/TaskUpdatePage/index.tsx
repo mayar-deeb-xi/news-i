@@ -4,12 +4,12 @@ import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import { drawerWidth } from '~/components/AppLayout';
 
-export interface HomePageProps {
+export interface TaskUpdatePageProps {
 
 
 }
 
-export const HomePage = (props: HomePageProps) => {
+export const TaskUpdatePage = (props: TaskUpdatePageProps) => {
 
     return (<Box component="main" sx={{ flexGrow: 1, p: 3 }} >
 
@@ -22,7 +22,7 @@ export const HomePage = (props: HomePageProps) => {
             }} >
             <Toolbar sx={{ display: 'flex', justifyContent: 'center', }}>
                 <Typography textAlign='center' variant="h6" noWrap component="div">
-                    Home
+                    Edit Task
                 </Typography>
             </Toolbar>
         </AppBar>
