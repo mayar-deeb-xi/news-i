@@ -15,6 +15,9 @@ import AddIcon from "@mui/icons-material/Add";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTasksStore } from "~/store/tasksStore";
 
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+
 export const drawerWidth = 240;
 
 export const AppLayout = ({ children }: { children: JSX.Element }) => {
@@ -28,6 +31,7 @@ export const AppLayout = ({ children }: { children: JSX.Element }) => {
   const location = useLocation();
 
   const tasks = useTasksStore((state) => state.tasks);
+  const updateTask = useTasksStore((state) => state.updateTask);
 
   const drawer = (
     <div
@@ -70,9 +74,15 @@ export const AppLayout = ({ children }: { children: JSX.Element }) => {
       </Toolbar>
       <Divider />
       <List>
-        {tasks.map((task, index) => (
+        {tasks.map((task) => (
           <ListItem key={task.id}>
-            <Checkbox checked={task.done} onChange={() => {}} />
+            <Checkbox
+              color="success"
+              icon={<RadioButtonUncheckedIcon />}
+              checkedIcon={<CheckCircleIcon />}
+              checked={task.done}
+              onChange={() => updateTask(task.id, { done: !task.done })}
+            />
             <ListItemText primary={task.name} />
 
             <Button onClick={() => navigate(`/tasks/update/${task.id}`)}>

@@ -1,7 +1,6 @@
 import { Outlet as AppOutlet } from "react-router-dom";
 import {
   MuiThemeProvider,
-  ReactQueryClientProvider,
   SnackbarProvider,
   MuiLocalizationProvider,
 } from "~/providers";
@@ -13,11 +12,9 @@ export const AppComponent = () => {
     <MuiThemeProvider>
       <MuiLocalizationProvider>
         <SnackbarProvider>
-          <ReactQueryClientProvider>
-            <AppLayout>
-              <AppOutlet />
-            </AppLayout>
-          </ReactQueryClientProvider>
+          <AppLayout>
+            <AppOutlet />
+          </AppLayout>
         </SnackbarProvider>
       </MuiLocalizationProvider>
     </MuiThemeProvider>

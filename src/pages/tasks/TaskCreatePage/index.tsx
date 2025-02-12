@@ -13,6 +13,7 @@ import { ControlledTextField } from "~/components/ControlledTextField";
 import { useTasksStore } from "~/store/tasksStore";
 import { generateUUID } from "~/utils";
 import { enqueueSnackbar } from "notistack";
+import { useLocation } from "react-router-dom";
 
 const schema = yup
   .object({
@@ -54,20 +55,6 @@ export const TaskCreatePage = () => {
         flexDirection: "column",
       }}
     >
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-          backgroundColor: (t) => t.palette.primary.main,
-        }}
-      >
-        <Toolbar sx={{ display: "flex", justifyContent: "center" }}>
-          <Typography textAlign="center" variant="h6" noWrap component="div">
-            New Task
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <Toolbar />
       <Box
         sx={{

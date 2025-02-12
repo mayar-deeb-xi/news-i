@@ -1,8 +1,5 @@
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import AppBar from "@mui/material/AppBar";
-import { drawerWidth } from "~/components/AppLayout";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { Button } from "@mui/material";
@@ -12,7 +9,7 @@ import * as yup from "yup";
 import { ControlledTextField } from "~/components/ControlledTextField";
 import { Task, useTasksStore } from "~/store/tasksStore";
 import { enqueueSnackbar } from "notistack";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const schema = yup
   .object({
@@ -25,6 +22,7 @@ export type Form = yup.InferType<typeof schema>;
 export const _TaskUpdatePage = ({ task }: { task: Task }) => {
   const navigate = useNavigate();
   const updateTask = useTasksStore((state) => state.updateTask);
+  const removeTask = useTasksStore((state) => state.removeTask);
 
   const {
     handleSubmit,
@@ -43,6 +41,12 @@ export const _TaskUpdatePage = ({ task }: { task: Task }) => {
     navigate("/");
   };
 
+  const onRemove = () => {
+    removeTask(task.id);
+    navigate("/");
+    enqueueSnackbar("Task was deleted successfully", { variant: "success" });
+  };
+
   return (
     <Box
       sx={{
@@ -53,22 +57,7 @@ export const _TaskUpdatePage = ({ task }: { task: Task }) => {
         flexDirection: "column",
       }}
     >
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-          backgroundColor: (t) => t.palette.primary.main,
-        }}
-      >
-        <Toolbar sx={{ display: "flex", justifyContent: "center" }}>
-          <Typography textAlign="center" variant="h6" noWrap component="div">
-            Edit Task
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <Toolbar />
-
       <Box
         sx={{
           display: "flex",
@@ -89,7 +78,7 @@ export const _TaskUpdatePage = ({ task }: { task: Task }) => {
         </FormControl>
 
         <Box sx={{ display: "flex", gap: 2 }}>
-          <Button variant="contained" color="error">
+          <Button variant="contained" color="error" onClick={() => onRemove()}>
             Delete
           </Button>
           <Button
@@ -110,7 +99,7 @@ export const TaskUpdatePage = () => {
   const tasks = useTasksStore((state) => state.tasks);
   const task = tasks.find((el) => el.id === id);
 
-  if (!task) return <Navigate to={"/not-found"} />;
+  if (!task) return <>not found</>;
 
   return <_TaskUpdatePage key={id} task={task} />;
 };
