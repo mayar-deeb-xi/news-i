@@ -78,7 +78,12 @@ export const _TaskUpdatePage = ({ task }: { task: Task }) => {
         </FormControl>
 
         <Box sx={{ display: "flex", gap: 2 }}>
-          <Button variant="contained" color="error" onClick={() => onRemove()}>
+          <Button
+            sx={{ flex: 0.2 }}
+            variant="contained"
+            color="error"
+            onClick={() => onRemove()}
+          >
             Delete
           </Button>
           <Button

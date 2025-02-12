@@ -25,7 +25,6 @@ export const ControlledTextField = <Form extends FieldValues>(
       {...controllerProps}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <TextField
-          size="small"
           error={!!error?.message}
           helperText={error?.message?.toString()}
           {...rest}

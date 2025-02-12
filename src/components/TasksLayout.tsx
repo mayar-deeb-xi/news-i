@@ -17,8 +17,20 @@ export const TasksLayout = ({ children }: { children: JSX.Element }) => {
           backgroundColor: (t) => t.palette.primary.main,
         }}
       >
-        <Toolbar sx={{ display: "flex", justifyContent: "center" }}>
-          <Typography textAlign="center" variant="h6" noWrap component="div">
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "start",
+          }}
+        >
+          <Typography
+            textAlign="center"
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ mt: 2.5 }}
+          >
             {getPageTitle(location.pathname)}
           </Typography>
         </Toolbar>
