@@ -88,6 +88,11 @@ export const lightTheme = createTheme({
             borderStyle: "solid",
             fontWeight: "bold",
             color: "#0D2972",
+            paddingTop: 8,
+            paddingBottom: 8,
+            minWidth: 0,
+            paddingRight: 8,
+            paddingLeft: 8,
           },
         },
         {

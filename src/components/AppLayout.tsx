@@ -80,9 +80,37 @@ export const AppLayout = ({ children }: { children: JSX.Element }) => {
       <Toolbar
         sx={{
           backgroundColor: (t) => t.palette.success.dark,
+          position: "relative",
         }}
       >
-        Holder
+        <img src="/image.png" width={53} height={40}></img>
+
+        <Typography
+          sx={{ ml: 2 }}
+          variant="h6"
+          fontWeight="bold"
+          color="#071D55"
+        >
+          Go Pro Upgrade Now
+        </Typography>
+
+        <Box
+          sx={{
+            backgroundColor: "#071D55",
+            position: "absolute",
+            width: 66,
+            height: 71,
+            top: 0,
+            right: 20,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+
+            opacity: mobileOpen ? 0.5 : 1,
+          }}
+        >
+          <Typography color="#F2C94C">$1</Typography>
+        </Box>
       </Toolbar>
       <Divider />
       <List>
@@ -106,11 +134,14 @@ export const AppLayout = ({ children }: { children: JSX.Element }) => {
                 icon={<RadioButtonUncheckedIcon />}
                 checkedIcon={<CheckCircleIcon />}
                 checked={task.done}
+                size="large"
                 onChange={() => updateTask(task.id, { done: !task.done })}
               />
               <ListItemText
                 sx={{
                   ...(task.done && { textDecoration: "line-through" }),
+
+                  color: task.done ? "#8D8D8D" : "#071D55",
                 }}
                 primary={task.name}
               />
