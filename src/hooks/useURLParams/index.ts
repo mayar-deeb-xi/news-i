@@ -2,31 +2,38 @@ import { useEffect } from "react";
 import { omit } from "lodash-es";
 import { useSearchParams } from "react-router-dom";
 import { MassUpdateFun, useURLParamsProps } from "./types";
-import { DEFAULT_MASTER_KEY, _objectToParamString, parse, stringify } from "./helpers";
-
+import {
+  DEFAULT_MASTER_KEY,
+  _objectToParamString,
+  parse,
+  stringify,
+} from "./helpers";
 
 /**
  * @description this hook is used get, set, delete queries
  * @note this hook solve nested params problem
  */
-export const useURLParams = <ParamsState extends Record<string, unknown> | undefined>(options?: useURLParamsProps<ParamsState>) => {
+export const useURLParams = <
+  ParamsState extends Record<string, unknown> | undefined,
+>(
+  options?: useURLParamsProps<ParamsState>,
+) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const masterKey = options?.masterKey ?? DEFAULT_MASTER_KEY;
-
 
   const setURLParams = (params?: ParamsState) => {
     const currentSearchParams = Object.fromEntries(searchParams as any) ?? {};
     setSearchParams(
       { ...currentSearchParams, [masterKey]: stringify(params) },
-      { replace: true }
+      { replace: true },
     );
   };
 
   const getURLParamsByKey = (key: string) => () => {
     try {
       const prms = parse(
-        Object.fromEntries(searchParams as any)?.[key] ?? "{}"
+        Object.fromEntries(searchParams as any)?.[key] ?? "{}",
       );
       return prms;
     } catch {

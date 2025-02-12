@@ -16,7 +16,7 @@ export const useDebounce = <T extends Function>(
    *
    * - Debounce time by ms
    */
-  time: number
+  time: number,
 ): T => {
   const ref = useRef<any>(null);
 
@@ -25,6 +25,5 @@ export const useDebounce = <T extends Function>(
     ref.current = setTimeout(() => fun(...args), time);
   };
 
-
-  return (tmp as unknown as T);
+  return tmp as unknown as T;
 };

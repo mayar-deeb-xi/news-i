@@ -1,7 +1,12 @@
 import { Outlet as AppOutlet } from "react-router-dom";
-import { MuiThemeProvider, ReactQueryClientProvider, SnackbarProvider, MuiLocalizationProvider } from "~/providers";
+import {
+  MuiThemeProvider,
+  ReactQueryClientProvider,
+  SnackbarProvider,
+  MuiLocalizationProvider,
+} from "~/providers";
 import { AppLayout } from "./components/AppLayout";
-import './index.css'
+import "./index.css";
 
 export const AppComponent = () => {
   return (

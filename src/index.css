@@ -1,8 +1,8 @@
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 * {
-    scrollbar-width: thin !important;
-    scrollbar-color: transparent !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: transparent !important;
 }

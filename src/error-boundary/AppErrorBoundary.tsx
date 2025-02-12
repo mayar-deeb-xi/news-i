@@ -11,22 +11,24 @@ export const AppErrorBoundary = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: '98vh'
+        minHeight: "98vh",
       }}
     >
       <Box>
-        <Typography
-          variant="h4" color="textPrimary"
-        >
+        <Typography variant="h4" color="textPrimary">
           We can’t get this page
         </Typography>
-        <Typography variant="body1" style={{ marginTop: "1rem" }} color="textSecondary" >
+        <Typography
+          variant="body1"
+          style={{ marginTop: "1rem" }}
+          color="textSecondary"
+        >
           Sorry, the page you are looking for doesn't work or has been moved.
           <br />
           Please, try again or contact us for more info.
         </Typography>
         <Typography style={{ marginTop: "1rem", color: "#F56565" }}>
-          {(error?.status)}  {(error?.statusText)}
+          {error?.status} {error?.statusText}
         </Typography>
         <Box
           sx={{
@@ -52,7 +54,7 @@ export const AppErrorBoundary = () => {
               textTransform: "capitalize",
             }}
             onClick={() => {
-              navigate("/")
+              navigate("/");
             }}
             variant="contained"
           >
