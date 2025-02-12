@@ -10,36 +10,45 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
+import { Button } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useTasksStore } from '~/store/tasksStore';
 
 export const drawerWidth = 240;
-
-
 
 export const AppLayout = ({ children }: { children: JSX.Element }) => {
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [isClosing, setIsClosing] = React.useState(false);
 
     const handleDrawerClose = () => {
-        setIsClosing(true);
         setMobileOpen(false);
     };
 
-    const handleDrawerTransitionEnd = () => {
-        setIsClosing(false);
-    };
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const handleDrawerToggle = () => {
-        if (!isClosing) {
-            setMobileOpen(!mobileOpen);
-        }
-    };
+    const tasks = useTasksStore(state => state.tasks);
 
     const drawer = (
-        <div>
+        <div
+            style={{
+                flex: 1,
+                position: 'relative'
+            }}
+        >
+            {location.pathname !== "/tasks/create" && <Button
+                onClick={() => navigate('tasks/create')}
+                variant='contained'
+                color='primary'
+                sx={{ position: 'absolute', bottom: 20, right: 20, borderRadius: '100%', py: 2, zoom: 0.9 }}
+            >
+                <AddIcon fontSize='large' />
+            </Button>}
+
             <Toolbar
                 sx={{
-                    backgroundColor: t => t.palette.primary.light
+                    backgroundColor: t => t.palette.primary.main
                 }}
             >
                 lklk
@@ -53,26 +62,15 @@ export const AppLayout = ({ children }: { children: JSX.Element }) => {
             </Toolbar>
             <Divider />
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
+                {tasks.map((task, index) => (
+                    <ListItem key={task.id} disablePadding>
+                        <ListItemButton
+                            onClick={() => navigate(`/tasks/update/${task.id}`)}
+                        >
                             <ListItemIcon>
                                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                             </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText primary={task.name} />
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -91,7 +89,6 @@ export const AppLayout = ({ children }: { children: JSX.Element }) => {
                 <Drawer
                     variant="temporary"
                     open={mobileOpen}
-                    onTransitionEnd={handleDrawerTransitionEnd}
                     onClose={handleDrawerClose}
                     ModalProps={{
                         keepMounted: true, // Better open performance on mobile.

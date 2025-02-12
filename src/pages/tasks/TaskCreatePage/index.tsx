@@ -3,22 +3,56 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import { drawerWidth } from '~/components/AppLayout';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import { Button } from '@mui/material';
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import { ControlledTextField } from '~/components/ControlledTextField';
+import { useTasksStore } from '~/store/tasksStore';
+import { generateUUID } from '~/utils';
+import { enqueueSnackbar } from 'notistack';
 
-export interface TaskCreatePageProps {
+
+const schema = yup
+    .object({
+        name: yup.string().required().label("Task Name")
+    })
+    .required();
+
+export type Form = yup.InferType<typeof schema>;
 
 
-}
+export const TaskCreatePage = () => {
 
-export const TaskCreatePage = (props: TaskCreatePageProps) => {
+    const {
+        handleSubmit,
+        formState: { errors }, control, reset
+    } = useForm({
+        resolver: yupResolver(schema),
+    });
 
-    return (<Box component="main" sx={{ flexGrow: 1, p: 3 }} >
+    const addTask = useTasksStore(state => state.addTask);
+
+    const onSubmit = (data: Form) => {
+        addTask({
+            id: generateUUID(),
+            name: data.name,
+            done: false
+        });
+        enqueueSnackbar("Task was added successfully", { variant: 'success' });
+        reset({ name: '' });
+    }
+
+    return (<Box sx={{ p: 3, borderStyle: 'solid', minHeight: '100vh', flex: 1, display: 'flex', flexDirection: 'column' }} >
 
         <AppBar
             position="fixed"
             sx={{
                 width: { sm: `calc(100% - ${drawerWidth}px)` },
                 ml: { sm: `${drawerWidth}px` },
-                backgroundColor: t => t.palette.primary.light
+                backgroundColor: t => t.palette.primary.main
             }} >
             <Toolbar sx={{ display: 'flex', justifyContent: 'center', }}>
                 <Typography textAlign='center' variant="h6" noWrap component="div">
@@ -27,22 +61,24 @@ export const TaskCreatePage = (props: TaskCreatePageProps) => {
             </Toolbar>
         </AppBar>
         <Toolbar />
+        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }} >
+            <FormControl error={!!errors.name?.message}>
+                <FormLabel htmlFor="task-name-label">Task Name</FormLabel>
+                <ControlledTextField
+                    controllerProps={{
+                        control,
+                        name: 'name'
+                    }}
+                    name='task-name-label'
+                />
+            </FormControl>
 
-
-        <Typography sx={{ marginBottom: 2 }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-            sapien faucibus et molestie ac.
-        </Typography>
+            <Box sx={{ display: 'flex' }}   >
+                <Button variant='contained' sx={{ flex: 1 }} onClick={() => handleSubmit(onSubmit)()} >
+                    Save
+                </Button>
+            </Box>
+        </Box>
     </Box>
     );
 }

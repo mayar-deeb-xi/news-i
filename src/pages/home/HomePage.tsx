@@ -18,7 +18,7 @@ export const HomePage = (props: HomePageProps) => {
             sx={{
                 width: { sm: `calc(100% - ${drawerWidth}px)` },
                 ml: { sm: `${drawerWidth}px` },
-                backgroundColor: t => t.palette.primary.light
+                backgroundColor: t => t.palette.primary.main
             }} >
             <Toolbar sx={{ display: 'flex', justifyContent: 'center', }}>
                 <Typography textAlign='center' variant="h6" noWrap component="div">
